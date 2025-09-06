@@ -71,8 +71,16 @@
             color: white;
             font-size: 14px;
             font-weight: bold;
+            position: relative;
+            text-align: center;
         }
-
+        
+        .progress-bar::after {
+            content: attr(data-progress);
+            position: absolute;
+            width: 100%;
+            text-align: center;
+        }
         .loading-text {
             margin-top: 20px;
             font-size: 18px;
@@ -320,14 +328,81 @@
 
         /* Mobile Optimizations */
         @media (max-width: 768px) {
-            h1 { font-size: 2em; }
-            h2 { font-size: 1.5em; }
-            p { font-size: 1.1em; }
-            .ice-cream { font-size: 80px; }
-            .coupon-title { font-size: 2em; }
-            section { padding: 30px 15px; }
+            h1 { 
+                font-size: 1.8em; 
+                line-height: 1.2;
+            }
+            h2 { 
+                font-size: 1.4em;
+                line-height: 1.3;
+                margin-bottom: 15px;
+            }
+            p { 
+                font-size: 1em;
+                line-height: 1.5;
+                margin-bottom: 15px;
+                text-align: left;
+                padding: 0 10px;
+            }
+            
+            /* Center align only specific elements */
+            .container > button,
+            .container > .ice-cream,
+            .coupon,
+            h1, h2 {
+                text-align: center;
+            }
+            
+            /* Special styling for Section 4 on mobile */
+            #section4 p {
+                text-align: left;
+                max-width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            #section4 p:first-of-type,
+            #section4 p:nth-of-type(2),
+            #section4 p:nth-of-type(3) {
+                font-size: 1.05em;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+            
+            /* Promise list items with better mobile formatting */
+            #section4 p:nth-of-type(n+5) {
+                text-align: left;
+                padding-left: 15px;
+            }
+            
+            .ice-cream { font-size: 70px; }
+            .coupon-title { font-size: 1.8em; }
+            section { padding: 30px 10px; }
+            
+            .timeline-item {
+                padding: 15px;
+            }
+            
+            .timeline-item p {
+                font-size: 0.95em;
+            }
         }
-
+        
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            h1 { font-size: 1.6em; }
+            h2 { font-size: 1.3em; }
+            p { font-size: 0.95em; }
+            
+            .next-btn {
+                font-size: 1em;
+                padding: 12px 25px;
+            }
+            
+            .demo-box {
+                min-width: 100%;
+            }
+        }
         /* Smooth Scroll */
         html {
             scroll-behavior: smooth;
@@ -481,11 +556,12 @@
             const interval = setInterval(() => {
                 progress += 1;
                 progressBar.style.width = progress + '%';
-                progressBar.textContent = progress + '%';
+                progressBar.setAttribute('data-progress', progress + '%');
+                progressBar.innerHTML = '<span style="position: relative; z-index: 1;">' + progress + '%</span>';
                 
                 if (progress >= 85) {
                     clearInterval(interval);
-                    progressBar.textContent = '85% (and improving!)';
+                    progressBar.innerHTML = '<span style="position: relative; z-index: 1;">85% (and improving!)</span>';
                     setTimeout(() => {
                         document.getElementById('loadingScreen').classList.add('hidden');
                     }, 1000);
