@@ -80,6 +80,40 @@
             text-align: center;
         }
 
+        /* Floating Hearts */
+        .hearts-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: var(--strawberry);
+            animation: floatAcross 15s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes floatAcross {
+            0% {
+                transform: translateX(-100px) translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
         /* Sections */
         section {
             min-height: 100vh;
@@ -115,27 +149,6 @@
             line-height: 1.6;
             margin-bottom: 20px;
             animation: fadeInUp 1s ease-out 0.3s backwards;
-        }
-
-        /* Floating Hearts */
-        .hearts-container {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .heart {
-            position: absolute;
-            color: var(--strawberry);
-            animation: float 6s infinite ease-in-out;
-            opacity: 0.6;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-50px) rotate(180deg); }
         }
 
         /* Ice Cream Animation */
@@ -352,7 +365,7 @@
         <div class="container">
             <h1>Hey Beautiful ❤️</h1>
             <p>So... I've been thinking (yes, it happens sometimes 😅)</p>
-            <p>About our last date, about the sidewalk thing, about how I'm basically running "Boyfriend OS v0.1" while you deserve v10.0...</p>
+            <p>About our last date, about the sidewalk thing, about how I'm basically running "Dating Skills v0.1" while you deserve v10.0...</p>
             <p>I made you something special. Because actions > words, right?</p>
             <div class="ice-cream">🍨</div>
             <button class="next-btn" onclick="scrollToSection('section2')">I'm Learning... →</button>
@@ -410,7 +423,7 @@
                 </div>
                 <div class="timeline-item">
                     <span class="upgrade-version">Version 4.0 (Coming Soon)</span>
-                    <h3>Advanced Boyfriend Features</h3>
+                    <h3>Advanced Dating Features</h3>
                     <p>⏳ Installing: Remember-random-things-you-mentioned.exe</p>
                     <p>⏳ Downloading: Notice-new-hairstyle-immediately.pkg</p>
                     <p>⏳ Current Status: 85% Complete...</p>
@@ -423,14 +436,19 @@
     <!-- Section 4: The Promise -->
     <section id="section4">
         <div class="container">
-            <h2>My Promise to You 💕</h2>
-            <p>I promise to:</p>
+            <h2>What I Really Want You to Know 💕</h2>
+            <p>Beyond the sidewalk thing and the ice cream...</p>
+            <p>I genuinely want to know more about you - your dreams, your stories, what makes you laugh, what makes you think...</p>
+            <p>I want to see where this takes us, no rush, no pressure, just... us figuring it out together 🌟</p>
+            <br>
+            <p>So here's my promise:</p>
             <p>🚶‍♂️ Always walk on the traffic side (even if it's just squirrels)</p>
             <p>🍦 Make up for every missed ice cream opportunity</p>
             <p>📚 Keep studying "Emotional Intelligence for Dummies"</p>
             <p>❤️ Show you that I care in all the little ways that matter</p>
+            <p>🌱 Give us the chance to grow into something beautiful</p>
             <p>And most importantly...</p>
-            <p>Keep trying to be the guy who deserves you 🌟</p>
+            <p>Keep trying to be someone worthy of your time 🌟</p>
             <button class="next-btn" onclick="scrollToSection('section5')">Claim Your Surprise →</button>
         </div>
     </section>
@@ -444,11 +462,12 @@
                 <p>+ Unlimited Flavors</p>
                 <p>+ Extra Toppings</p>
                 <p>+ All The Time You Want</p>
-                <p>+ One Slightly Upgraded Boyfriend (v4.0)</p>
+                <p>+ One Guy Who's Learning (v4.0)</p>
+                <p>+ Genuine Conversations About Everything & Nothing</p>
                 <br>
                 <p><em>Valid for: Infinite sorries and one actual ice cream date</em></p>
                 <button class="redeem-btn" onclick="redeemCoupon()">REDEEM NOW 🍨</button>
-                <p class="terms">Terms & Conditions: Must be redeemed with the guy who's trying his best. No expiration date. Side effects may include spontaneous smiling and forgiveness.</p>
+                <p class="terms">Terms & Conditions: Must be redeemed with the guy who's trying his best to know you better. No expiration date. Side effects may include spontaneous smiling, deep conversations, and seeing where this journey takes us.</p>
             </div>
         </div>
     </section>
@@ -480,18 +499,29 @@
             const heart = document.createElement('div');
             heart.className = 'heart';
             heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + '%';
+            
+            // Random starting position along the left side or bottom
+            const startFromLeft = Math.random() > 0.5;
+            if (startFromLeft) {
+                heart.style.left = '-50px';
+                heart.style.top = Math.random() * 100 + '%';
+            } else {
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = '100vh';
+            }
+            
             heart.style.animationDelay = Math.random() * 2 + 's';
-            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heart.style.animationDuration = (Math.random() * 5 + 12) + 's';
             heartsContainer.appendChild(heart);
             
             setTimeout(() => {
                 heart.remove();
-            }, 6000);
+            }, 17000);
         }
 
         // Generate hearts periodically
-        setInterval(createHeart, 3000);
+        setInterval(createHeart, 2000);
 
         // Smooth scroll to section
         function scrollToSection(sectionId) {
@@ -502,7 +532,7 @@
         function redeemCoupon() {
             // You can replace this with actual ice cream delivery service URL
             // For now, it shows a sweet message
-            alert('🍦 Coupon Activated! 🍦\n\nText me when you want to redeem this!\n\nP.S. I already have a list of the best ice cream places. Yes, I did research. Yes, I\'m that serious about this. 😊');
+            alert('🍦 Coupon Activated! 🍦\n\nText me when you want to redeem this!\n\nP.S. I already have a list of the best ice cream places. Yes, I did research. Yes, I want to make this perfect. And yes, I\'m excited to spend more time with you 😊');
             
             // Optional: Redirect to actual ice cream delivery service
             // window.location.href = 'https://www.ubereats.com/category/ice-cream';
@@ -520,7 +550,7 @@
                 });
             });
 
-            // Add click effect for extra hearts
+            // Add click effect for extra hearts floating across screen
             document.body.addEventListener('click', (e) => {
                 if (e.target.tagName !== 'BUTTON') {
                     createHeart();
